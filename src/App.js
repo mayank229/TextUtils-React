@@ -44,8 +44,8 @@ function App() {
         <Alert alert={alert} />
 
         <Routes>
-          <Route exact path="/about"     element={<About mode={mode} />} />
-          <Route exact path="/" element={
+          <Route exact path="/TextUtils-React/about"     element={<About mode={mode} />} />
+          <Route exact path="/TextUtils-React" element={
             <div className="container my-5">
               <TextForm heading="Enter your text to analyze" mode={mode} showAlert={showAlert} />
             </div>}
