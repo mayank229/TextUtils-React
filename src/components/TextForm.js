@@ -32,9 +32,7 @@ function TextForm(props) {
     }
 
     const handleCopyText = () => {
-        var copyText = document.getElementById("myText");
-        copyText.select();
-        navigator.clipboard.writeText(copyText.value);
+        navigator.clipboard.writeText(text);
         props.showAlert("Copied text", "success");
 
     }
@@ -46,20 +44,20 @@ function TextForm(props) {
                 <div className="mb-3" >
                     <textarea className="form-control" value={text} style={{color: props.mode==="dark"?"white":"black", backgroundColor: props.mode==="dark"?"#555b60":"white"}} onChange={handleOnChange} id="myText" rows="8"></textarea>
                 </div>
-                <button className="btn btn-primary mx-1" onClick={handleUpperCase}>Convert to UpperCase</button>
-                <button className="btn btn-primary mx-1" onClick={handleLowerCase}>Convert to LowerCase</button>
-                <button className="btn btn-primary mx-1" onClick={handleSpace}>Remove Extra Space</button>
-                <button className="btn btn-danger mx-1" onClick={handleClearText}>Clear Text</button>
-                <button className="btn btn-success mx-1" onClick={handleCopyText}>Copy Text</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleUpperCase}>Convert to UpperCase</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleLowerCase}>Convert to LowerCase</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleSpace}>Remove Extra Space</button>
+                <button disabled={text.length===0} className="btn btn-danger mx-1 my-1" onClick={handleClearText}>Clear Text</button>
+                <button disabled={text.length===0} className="btn btn-success mx-1 my-1" onClick={handleCopyText}>Copy Text</button>
 
 
             </div>
             <div className="my-5" style={{color: props.mode==="dark"?"white":"black"}}>
                 <h3>Text Summary</h3>
-                <p><b>{text.length === 0 ? 0 : text.trim().split(" ").length} words</b> and <b>{text.length} characters</b></p>
-                <p>Reading time <b>{text.length === 0 ? 0 : 0.005 * text.trim().split(" ").length} mins</b></p>
+                <p><b>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words</b> and <b>{text.length} characters</b></p>
+                <p>Reading time <b>{text.length === 0 ? 0 : 0.005 * text.split(" ").filter((element)=>{return element.length!==0}).length} mins</b></p>
                 <h3>Preview</h3>
-                <div style={{border: props.mode === "dark"? "1px solid white": "1px solid grey", padding: "6px", borderRadius: "4px", background: props.mode === "light"? "lightgrey": "#333333"}}>
+                <div style={{border: props.mode === "dark"? "1px solid white": "1px solid grey", padding: "6px", borderRadius: "4px", background: props.mode === "light"? "lightgrey": "rgb(54 58 62)"}}>
                     <p >{text.length === 0 ? "Enter some text to preview" : text}</p>
                 </div>
             </div>
